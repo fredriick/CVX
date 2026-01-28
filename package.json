@@ -1,4 +1,7 @@
 {
+    "name": "cvx-monorepo",
+    "version": "0.1.0",
+    "description": "CVX: Compressed Vaults on Solana",
     "dependencies": {
         "@coral-xyz/anchor": "^0.32.1"
     },
