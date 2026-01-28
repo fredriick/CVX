@@ -10,9 +10,8 @@ import { useMemo, useCallback } from 'react';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-    // Use Localnet endpoint
-    // IMPORTANT: Phantom requires the network to "look" like Devnet even for localhost
-    const endpoint = "http://127.0.0.1:8899";
+    // Use Devnet endpoint
+    const endpoint = "https://api.devnet.solana.com";
 
     const wallets = useMemo(
         () => [

@@ -2,7 +2,7 @@
 
 CVX is a Solana program built with Anchor that demonstrates **State Hibernation** using ZK-Compression concepts. It allows users to "compress" their on-chain state (closing the account and reclaiming rent) and "decompress" it later (waking up the account) using a validity proof.
 
-## 🚀 Key Features
+## ⛩️ Key Features
 
 *   **Vault Account**: A standard PDA holding user funds.
 *   **Hibernate (`hibernate_account`)**:
@@ -69,7 +69,7 @@ A Next.js web interface is available in the `web/` directory. See [web/README.md
 - Vault initialization, deposit, withdraw
 - Hibernate & Wake Up with LocalStorage state persistence
 
-## 🔮 Future Roadmap
+## ⛯ Future Roadmap
 - [ ] **Merkle Tree Integration**: Replace mock hash checks with real Concurrent Merkle Tree verification.
 - [x] **Frontend Interface**: Web UI to visually manage vaults and trigger hibernation.
 - [ ] **SPL Token Support**: Compress token accounts (ATAs) alongside SOL balances.

@@ -8,11 +8,14 @@ skip-lint = false
 [programs.localnet]
 cvx = "3VVsXSvtFXnZN9ovdKiPnzxvKpdd7AepCm11aheGmmLd"
 
+[programs.devnet]
+cvx = "3VVsXSvtFXnZN9ovdKiPnzxvKpdd7AepCm11aheGmmLd"
+
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "./owner.json"
 
 [scripts]

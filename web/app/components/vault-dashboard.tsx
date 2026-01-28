@@ -363,7 +363,7 @@ export function VaultDashboard() {
                         <div className="mt-8 pt-6 border-t border-white/5">
                             <div className="flex items-center gap-2 text-xs text-white/30">
                                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                                Live on Localnet
+                                Live on Devnet
                             </div>
                         </div>
                     </div>
