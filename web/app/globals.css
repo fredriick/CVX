@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+
+  --primary: #14F195;
+  /* Solana Green */
+  --primary-glow: rgba(20, 241, 149, 0.4);
+
+  --secondary: #9945FF;
+  /* Solana Purple */
+  --accent: #19fb9b;
+
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --glass: blur(16px) saturate(180%);
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  background-image:
+    radial-gradient(circle at 15% 50%, rgba(153, 69, 255, 0.15), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(20, 241, 149, 0.15), transparent 25%);
+  min-height: 100vh;
+}
+
+@layer components {
+  .glass-card {
+    background: var(--card-bg);
+    backdrop-filter: var(--glass);
+    border: 1px solid var(--card-border);
+    border-radius: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 rounded-lg font-bold transition-all duration-300;
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    color: #000;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 20px var(--primary-glow);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 rounded-lg font-bold transition-all duration-300;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    background: rgba(20, 241, 149, 0.1);
+  }
+}

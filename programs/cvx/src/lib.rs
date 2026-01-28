@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("3VVsXSvtFXnZN9ovdKiPnzxvKpdd7AepCm11aheGmmLd");
 
 #[program]
 pub mod cvx {
@@ -119,7 +119,13 @@ pub mod cvx {
 
 #[derive(Accounts)]
 pub struct InitializeConfig<'info> {
-    #[account(init, payer = admin, space = 8 + 32 + 32)]
+    #[account(
+        init, 
+        payer = admin, 
+        space = 8 + 32 + 32,
+        seeds = [b"config"],
+        bump
+    )]
     pub global_config: Account<'info, GlobalConfig>,
     #[account(mut)]
     pub admin: Signer<'info>,
@@ -128,14 +134,24 @@ pub struct InitializeConfig<'info> {
 
 #[derive(Accounts)]
 pub struct UpdateRoot<'info> {
-    #[account(mut)]
+    #[account(
+        mut,
+        seeds = [b"config"],
+        bump
+    )]
     pub global_config: Account<'info, GlobalConfig>,
     pub admin: Signer<'info>,
 }
 
 #[derive(Accounts)]
 pub struct Initialize<'info> {
-    #[account(init, payer = signer, space = 8 + 32 + 8 + 8 + 32)]
+    #[account(
+        init, 
+        payer = signer, 
+        space = 8 + 32 + 8 + 8 + 32,
+        seeds = [b"vault", signer.key().as_ref()], 
+        bump
+    )]
     pub vault_account: Account<'info, VaultAccount>,
     #[account(mut)]
     pub signer: Signer<'info>,
@@ -144,7 +160,11 @@ pub struct Initialize<'info> {
 
 #[derive(Accounts)]
 pub struct Deposit<'info> {
-    #[account(mut)]
+    #[account(
+        mut,
+        seeds = [b"vault", signer.key().as_ref()], 
+        bump
+    )]
     pub vault_account: Account<'info, VaultAccount>,
     #[account(mut)]
     pub signer: Signer<'info>,
@@ -153,7 +173,11 @@ pub struct Deposit<'info> {
 
 #[derive(Accounts)]
 pub struct Withdraw<'info> {
-    #[account(mut)]
+    #[account(
+        mut,
+        seeds = [b"vault", signer.key().as_ref()], 
+        bump
+    )]
     pub vault_account: Account<'info, VaultAccount>,
     #[account(mut)]
     pub signer: Signer<'info>,
@@ -161,7 +185,12 @@ pub struct Withdraw<'info> {
 
 #[derive(Accounts)]
 pub struct HibernateAccount<'info> {
-    #[account(mut, close = destination_wallet)]
+    #[account(
+        mut, 
+        close = destination_wallet,
+        seeds = [b"vault", signer.key().as_ref()], 
+        bump
+    )]
     pub vault_account: Account<'info, VaultAccount>,
     #[account(mut)]
     pub destination_wallet: SystemAccount<'info>,
@@ -170,9 +199,19 @@ pub struct HibernateAccount<'info> {
 
 #[derive(Accounts)]
 pub struct WakeUpAccount<'info> {
-    #[account(init, payer = signer, space = 8 + 32 + 8 + 8 + 32)]
+    #[account(
+        init, 
+        payer = signer, 
+        space = 8 + 32 + 8 + 8 + 32,
+        seeds = [b"vault", signer.key().as_ref()], 
+        bump
+    )]
     pub vault_account: Account<'info, VaultAccount>,
-    #[account(mut)]
+    #[account(
+        mut,
+        seeds = [b"config"],
+        bump
+    )]
     pub global_config: Account<'info, GlobalConfig>,
     #[account(mut)]
     pub signer: Signer<'info>,

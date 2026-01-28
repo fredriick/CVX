@@ -60,9 +60,18 @@ anchor test
 ### Events
 *   `CompressionEvent`: Emitted during hibernation. This serves as the "Call Data" for off-chain indexers to reconstruct the state tree.
 
+## 🌐 Frontend
+
+A Next.js web interface is available in the `web/` directory. See [web/README.md](./web/README.md) for setup instructions.
+
+**Features:**
+- Wallet connection (Phantom, Solflare)
+- Vault initialization, deposit, withdraw
+- Hibernate & Wake Up with LocalStorage state persistence
+
 ## 🔮 Future Roadmap
 - [ ] **Merkle Tree Integration**: Replace mock hash checks with real Concurrent Merkle Tree verification.
-- [ ] **Frontend Interface**: Web UI to visually manage vaults and trigger hibernation.
+- [x] **Frontend Interface**: Web UI to visually manage vaults and trigger hibernation.
 - [ ] **SPL Token Support**: Compress token accounts (ATAs) alongside SOL balances.
 
 ## 📝 License
