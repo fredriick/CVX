@@ -271,18 +271,7 @@ export function VaultDashboard() {
                             </p>
 
                             <div className="pt-6">
-                                <button
-                                    onClick={hibernate}
-                                    className="w-full py-4 rounded-xl border border-red-500/50 text-red-400 hover:bg-red-500/10 transition-all font-bold flex items-center justify-center gap-2 group"
-                                >
-                                    <span>❄️</span> Hibernate Vault
-                                    <span className="text-xs font-normal opacity-50 group-hover:opacity-100 transition-opacity">
-                                        (Compress State)
-                                    </span>
-                                </button>
-                                <p className="text-[10px] text-center mt-2 text-white/30">
-                                    Must be inactive for &gt;60s to hibernate.
-                                </p>
+                                <HibernationTimer lastUsed={vaultAccount.lastUsed} onHibernate={hibernate} />
                             </div>
                         </div>
                     ) : hibernatedState ? (
@@ -385,6 +374,49 @@ export function VaultDashboard() {
                     </button>
                 </div>
             )}
+        </div>
+    );
+}
+
+function HibernationTimer({ lastUsed, onHibernate }: { lastUsed: number, onHibernate: () => void }) {
+    const [now, setNow] = useState(Date.now() / 1000);
+
+    useEffect(() => {
+        const interval = setInterval(() => setNow(Date.now() / 1000), 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const elapsed = now - lastUsed;
+    const remaining = Math.max(0, 60 - elapsed);
+    const isReady = remaining === 0;
+
+    return (
+        <div>
+            <button
+                onClick={onHibernate}
+                disabled={!isReady}
+                className={`w-full py-4 rounded-xl border transition-all font-bold flex items-center justify-center gap-2 group
+                    ${isReady
+                        ? 'border-red-500/50 text-red-400 hover:bg-red-500/10 cursor-pointer'
+                        : 'border-white/10 text-white/30 cursor-not-allowed bg-white/5'
+                    }`}
+            >
+                {isReady ? (
+                    <>
+                        <span>❄️</span> Hibernate Vault
+                        <span className="text-xs font-normal opacity-50 group-hover:opacity-100 transition-opacity">
+                            (Compress State)
+                        </span>
+                    </>
+                ) : (
+                    <>
+                        <span>⏳</span> Cooldown: {remaining.toFixed(0)}s
+                    </>
+                )}
+            </button>
+            <p className="text-[10px] text-center mt-2 text-white/30">
+                {isReady ? "Vault is inactive. Ready to hibernate." : "Must be inactive to hibernate."}
+            </p>
         </div>
     );
 }
